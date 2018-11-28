@@ -1,7 +1,7 @@
 import random
 
 ludz = (
-("""
+    ("""
 ------
 |    |
 |
@@ -13,7 +13,7 @@ ludz = (
 |
 ---------
 """),
-("""
+    ("""
 ------
 |    |
 |    0
@@ -25,7 +25,7 @@ ludz = (
 |
 ---------
 """),
-("""
+    ("""
 ------
 |    |
 |    0
@@ -37,7 +37,7 @@ ludz = (
 |
 ---------
 """),
-("""
+    ("""
 ------
 |    |
 |    0
@@ -49,7 +49,7 @@ ludz = (
 |
 ---------
 """),
-("""
+    ("""
 ------
 |    |
 |    0
@@ -61,7 +61,7 @@ ludz = (
 |
 ---------
 """),
-("""
+    ("""
 ------
 |    |
 |    0
@@ -73,7 +73,7 @@ ludz = (
 |
 ---------
 """),
-("""
+    ("""
 ------
 |    |
 |    0
@@ -85,7 +85,7 @@ ludz = (
 |
 ---------
 """),
-("""
+    ("""
 ------
 |    |
 |    0
@@ -97,7 +97,7 @@ ludz = (
 |
 ---------
 """),
-("""
+    ("""
 ------
 |    |
 |    0
@@ -112,19 +112,19 @@ ludz = (
 
 )
 
-MAX_POMYLKA=len(ludz)-1
+MAX_POMYLKA = len(ludz) - 1
 slowa = ("MORZE", "BALTYK", "GDYNIA", "SLASKA", "PYTHON")
 slowo = random.choice(slowa)
 dlugosc_slowa = "-" * len(slowo)
-POMYLKA=0
-uzyte=[]
+POMYLKA = 0
+uzyte = []
 print("Witaj w grze ’Wisielec'. Powodzenia!")
 while POMYLKA < MAX_POMYLKA and dlugosc_slowa != slowo:
     print(ludz[POMYLKA])
     print("\nWykorzystałeś już następujące litery:\n", uzyte)
     print("\nNa razie zagadkowe słowo wygląda tak:\n", dlugosc_slowa)
     zgadnij = input("\n\nWprowadź literę: ")
-    zgadnij = zgadnij.upper() # zamiana na duże litery wprowadzonych liter
+    zgadnij = zgadnij.upper()  # zamiana na duże litery wprowadzonych liter
     while zgadnij in uzyte:
         print("Już wykorzystałeś literę", zgadnij)
         zgadnij = input("Wprowadź literę: ")

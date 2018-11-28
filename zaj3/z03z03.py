@@ -32,6 +32,9 @@ def ruchyBrowna(n):
     plt.ylabel("ly")
     plt.title("Ruchy Browna")
     plt.grid(True)
+
+    plt.plot((0, lx[-1]), (0, ly[-1]), color="blue")
+
     plt.show()
 
 

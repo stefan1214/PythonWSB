@@ -1,6 +1,8 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+#zamiana komunikatów (bez polskich znaków) na ikonki stosowane w komunikatorze Discord
+
 from os import system, name
 import unicodedata
 

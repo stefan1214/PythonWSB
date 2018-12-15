@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QLabel, QGridLayout
 from PyQt5.QtWidgets import QLineEdit, QPushButton, QHBoxLayout
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import Qt
+import math
 
 
 class Kalkulator(QWidget):
@@ -42,8 +43,12 @@ class Kalkulator(QWidget):
         dodajBtn = QPushButton("&Dodaj", self)
         odejmijBtn = QPushButton("&Odejmij", self)
         dzielBtn = QPushButton("&Mnóż", self)
-        mnozBtn = QPushButton("D&ziel", self)
+        mnozBtn = QPushButton("&Dziel", self)
         koniecBtn = QPushButton("&Koniec", self)
+        sqrtBtn = QPushButton("&Sqrt", self)
+        perBtn = QPushButton("&Procent", self)
+        powBtn = QPushButton("&Potęga", self)
+        revBtn = QPushButton("&Odwrotna", self)
         koniecBtn.resize(koniecBtn.sizeHint())
 
         ukladH = QHBoxLayout()
@@ -51,6 +56,9 @@ class Kalkulator(QWidget):
         ukladH.addWidget(odejmijBtn)
         ukladH.addWidget(dzielBtn)
         ukladH.addWidget(mnozBtn)
+        ukladH.addWidget(sqrtBtn)
+        ukladH.addWidget(perBtn)
+        ukladH.addWidget(revBtn)
 
         ukladT.addLayout(ukladH, 2, 0, 1, 3)
         ukladT.addWidget(koniecBtn, 3, 0, 1, 3)
@@ -63,6 +71,10 @@ class Kalkulator(QWidget):
         odejmijBtn.clicked.connect(self.dzialanie)
         mnozBtn.clicked.connect(self.dzialanie)
         dzielBtn.clicked.connect(self.dzialanie)
+        sqrtBtn.clicked.connect(self.dzialanie)
+        perBtn.clicked.connect(self.dzialanie)
+        powBtn.clicked.connect(self.dzialanie)
+        revBtn.clicked.connect(self.dzialanie)
 
         self.liczba1Edt.setFocus()
         self.setGeometry(20, 20, 300, 100)
@@ -104,10 +116,23 @@ class Kalkulator(QWidget):
                 wynik = liczba1 - liczba2
             elif nadawca.text() == "&Mnóż":
                 wynik = liczba1 * liczba2
-            else:  # dzielenie
+            elif nadawca.text() == "&Procent":
+                wynik = liczba1/liczba2*100
+            elif nadawca.text() == "&Potęga":
+                wynik = math.pow(liczba1,liczba2)
+            elif nadawca.text() == "&Odwrotna":
+                wynik = 1.0/liczba1
+            elif nadawca.text() == "&Dzielenie":
                 try:
                     wynik = round(liczba1 / liczba2, 9)
                 except ZeroDivisionError:
+                    QMessageBox.critical(
+                        self, "Błąd", "Nie można dzielić przez zero!")
+                    return
+            else:
+                try:
+                    wynik = round(math.pow(liczba1, 1.0/liczba2)) #w polu 2 trezba podać stopień pierwiastka
+                except ZeroDivisionError: #dodałem zgodnie z poleceniem ale sqrt(0) = 0 więc nie trzeba dodawac wyjątku
                     QMessageBox.critical(
                         self, "Błąd", "Nie można dzielić przez zero!")
                     return
@@ -115,8 +140,7 @@ class Kalkulator(QWidget):
             self.wynikEdt.setText(str(wynik))
 
         except ValueError:
-            QMessageBox.warning(self, "Błąd", "Błędne dane", QMessageBox.Ok)
-
+            QMessageBox.warning(self, "Błąd", "Błędne dane. np. Nie pododałeś obu liczb lub nie podałeś stopnia pierwiastka", QMessageBox.Ok)
 
 if __name__ == '__main__':
     import sys

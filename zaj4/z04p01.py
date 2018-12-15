@@ -8,14 +8,11 @@ import math
 
 
 class Kalkulator(QWidget):
-
     def __init__(self, parent=None):
         super().__init__(parent)
-
         self.interfejs()
 
     def interfejs(self):
-
         # etykiety
         etykieta1 = QLabel("Liczba 1:", self)
         etykieta2 = QLabel("Liczba 2:", self)
@@ -86,12 +83,10 @@ class Kalkulator(QWidget):
         self.close()
 
     def closeEvent(self, event):
-
         odp = QMessageBox.question(
             self, 'Komunikat',
             "Czy na pewno koniec?",
             QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-
         if odp == QMessageBox.Yes:
             event.accept()
         else:
@@ -102,14 +97,11 @@ class Kalkulator(QWidget):
             self.close()
 
     def dzialanie(self):
-
         nadawca = self.sender()
-
         try:
             liczba1 = float(self.liczba1Edt.text())
             liczba2 = float(self.liczba2Edt.text())
             wynik = ""
-
             if nadawca.text() == "&Dodaj":
                 wynik = liczba1 + liczba2
             elif nadawca.text() == "&Odejmij":
@@ -117,11 +109,11 @@ class Kalkulator(QWidget):
             elif nadawca.text() == "&Mnóż":
                 wynik = liczba1 * liczba2
             elif nadawca.text() == "&Procent":
-                wynik = liczba1/liczba2*100
+                wynik = liczba1 / liczba2 * 100
             elif nadawca.text() == "&Potęga":
-                wynik = math.pow(liczba1,liczba2)
+                wynik = math.pow(liczba1, liczba2)
             elif nadawca.text() == "&Odwrotna":
-                wynik = 1.0/liczba1
+                wynik = 1.0 / liczba1
             elif nadawca.text() == "&Dzielenie":
                 try:
                     wynik = round(liczba1 / liczba2, 9)
@@ -131,16 +123,17 @@ class Kalkulator(QWidget):
                     return
             else:
                 try:
-                    wynik = round(math.pow(liczba1, 1.0/liczba2)) #w polu 2 trezba podać stopień pierwiastka
-                except ZeroDivisionError: #dodałem zgodnie z poleceniem ale sqrt(0) = 0 więc nie trzeba dodawac wyjątku
+                    wynik = round(math.pow(liczba1, 1.0 / liczba2))  # w polu 2 trezba podać stopień pierwiastka
+                except ZeroDivisionError:  # dodałem zgodnie z poleceniem ale sqrt(0) = 0 więc nie trzeba dodawac wyjątku
                     QMessageBox.critical(
                         self, "Błąd", "Nie można dzielić przez zero!")
                     return
-
             self.wynikEdt.setText(str(wynik))
-
         except ValueError:
-            QMessageBox.warning(self, "Błąd", "Błędne dane. np. Nie pododałeś obu liczb lub nie podałeś stopnia pierwiastka", QMessageBox.Ok)
+            QMessageBox.warning(self, "Błąd",
+                                "Błędne dane. np. Nie pododałeś obu liczb lub nie podałeś stopnia pierwiastka",
+                                QMessageBox.Ok)
+
 
 if __name__ == '__main__':
     import sys

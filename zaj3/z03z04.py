@@ -1,20 +1,32 @@
-#!/ usr / bin / env python
-# -*- coding : utf -8 -*-
-
 import numpy as np
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
-a = 1
-b = -3
-c = 1
+data = np.array([2, 4, 6, 8, 10])
+data = data * 5
 
-x = np.arange(-10, 10, 1)
+plt.plot(data)
 
-y = a * x * x + b * x + c
+x = np.arange(100)
+linear = np.arange(100)
+square = [v * v for v in np.arange(0, 10, 0.1)]
 
-plt.plot(x, y)
+lines = plt.plot(x, linear, 'y--', x, square, 'r--')
 
-plt.title('Wykres f(x) = a*x^2+b*x+ c')
-plt.grid(True)
+my_plot = plt.gca()
+
+line0 = my_plot.lines[0]
+line0.set_marker('d')
+line0.set_linestyle('--')
+line0.set_color('b')
+
+plt.setp(lines, linewidth=2)
+plt.setp(lines, markersize=6)
+plt.setp(lines, dashes=[10, 5, 100, 5])
+
+plt.legend(('funkcja 1', 'funkcja liniowa', 'funkcja 2'), loc='upper left')
+
+plt.title('Trzy różne wykresy')
+plt.xlabel('oś X')
+plt.ylabel('oś Y')
 
 plt.show()

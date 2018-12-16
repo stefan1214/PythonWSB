@@ -130,7 +130,8 @@ class Kalkulator(QWidget):
                     return
             else:
                 try:
-                    wynik = round(math.pow(liczba1, 0.5 if tak else 1.0 / liczba2))  # w polu 2 trzeba podać stopień pierwiastka
+                    wynik = round(
+                        math.pow(liczba1, 0.5 if tak else 1.0 / liczba2))  # w polu 2 trzeba podać stopień pierwiastka
                 except ZeroDivisionError:  # dodałem zgodnie z poleceniem ale sqrt(0) = 0 więc nie trzeba dodawac wyjątku
                     QMessageBox.critical(
                         self, "Błąd", "Nie można dzielić przez zero!")

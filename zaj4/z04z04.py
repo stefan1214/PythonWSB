@@ -1,8 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QColorDialog, QMainWindow, QLineEdit
+from PyQt5.QtWidgets import QApplication, QPushButton, QMainWindow, QLineEdit
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QColor
 from math import sqrt
 
 num = 0.0

@@ -49,16 +49,19 @@ class Kalkulator(QWidget):
         koniecBtn.resize(koniecBtn.sizeHint())
 
         ukladH = QHBoxLayout()
+        ukladH2 = QHBoxLayout()
         ukladH.addWidget(dodajBtn)
         ukladH.addWidget(odejmijBtn)
         ukladH.addWidget(dzielBtn)
         ukladH.addWidget(mnozBtn)
-        ukladH.addWidget(sqrtBtn)
-        ukladH.addWidget(perBtn)
-        ukladH.addWidget(revBtn)
+        ukladH2.addWidget(sqrtBtn)
+        ukladH2.addWidget(powBtn)
+        ukladH2.addWidget(perBtn)
+        ukladH2.addWidget(revBtn)
 
         ukladT.addLayout(ukladH, 2, 0, 1, 3)
-        ukladT.addWidget(koniecBtn, 3, 0, 1, 3)
+        ukladT.addLayout(ukladH2, 3, 0, 1, 3)
+        ukladT.addWidget(koniecBtn, 4, 0, 1, 3)
 
         # przypisanie utworzonego układu do okna
         self.setLayout(ukladT)
@@ -100,7 +103,11 @@ class Kalkulator(QWidget):
         nadawca = self.sender()
         try:
             liczba1 = float(self.liczba1Edt.text())
-            liczba2 = float(self.liczba2Edt.text())
+            try:
+                liczba2 = float(self.liczba2Edt.text())
+            except ValueError:
+                liczba2 = 0
+                tak = True
             wynik = ""
             if nadawca.text() == "&Dodaj":
                 wynik = liczba1 + liczba2
@@ -111,10 +118,10 @@ class Kalkulator(QWidget):
             elif nadawca.text() == "&Procent":
                 wynik = liczba1 / liczba2 * 100
             elif nadawca.text() == "&Potęga":
-                wynik = math.pow(liczba1, liczba2)
+                wynik = math.pow(liczba1, 2 if tak else liczba2)
             elif nadawca.text() == "&Odwrotna":
                 wynik = 1.0 / liczba1
-            elif nadawca.text() == "&Dzielenie":
+            elif nadawca.text() == "D&zielenie":
                 try:
                     wynik = round(liczba1 / liczba2, 9)
                 except ZeroDivisionError:
@@ -123,7 +130,7 @@ class Kalkulator(QWidget):
                     return
             else:
                 try:
-                    wynik = round(math.pow(liczba1, 1.0 / liczba2))  # w polu 2 trezba podać stopień pierwiastka
+                    wynik = round(math.pow(liczba1, 0.5 if tak else 1.0 / liczba2))  # w polu 2 trzeba podać stopień pierwiastka
                 except ZeroDivisionError:  # dodałem zgodnie z poleceniem ale sqrt(0) = 0 więc nie trzeba dodawac wyjątku
                     QMessageBox.critical(
                         self, "Błąd", "Nie można dzielić przez zero!")
